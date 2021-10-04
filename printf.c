@@ -2,38 +2,38 @@
 
 /**
  * _printf - custom function that format and print data
- * @format: list of types of arguments passed to the function
+ * @format:  list of types of arguments passed to the function
  * Return: int
  */
 
 int _printf(const char *format, ...)
 {
-	va_list lists;
+	va_list list;
 	int idx, j;
 	int len_buf = 0;
 	char *s;
 	char *create_buff;
 
-	type_t opp[] = {
+	type_t ops[] = {
 		{"c", print_c},
 		{"s", print_s},
 		{"i", print_i},
-		{"d", print_d},
+		{"d", print_i},
 		{"b", print_bin},
 		{NULL, NULL}
 	};
 	create_buff = malloc(1024 * sizeof(char));
-	if(create_buff == NULL)
+	if (create_buff == NULL)
 	{
 		free(create_buff);
 		return (-1);
 	}
 	va_start(list, format);
-	if(format == NULL || list == NULL)
+	if (format == NULL || list == NULL)
 		return (-1);
 	for (idx = 0; format[idx] != '\0'; idx++)
 	{
-		if (format[idx] == '%' && format [idx + 1] == '%')
+		if (format[idx] == '%' && format[idx + 1] == '%')
 			continue;
 		else if (format[idx] == '%')
 		{
@@ -69,4 +69,5 @@ int _printf(const char *format, ...)
 	write(1, create_buff, len_buf);
 	va_end(list);
 	free(create_buff);
+	return (len_buf);
 }
